@@ -34,13 +34,12 @@ class DestinationPlaylists(private val list: List<SimplePlaylist>) : KoinCompone
                         }
                         offset += 50
                     } while (pagingObject.isEmpty().not())
-                    playlistTracks.add(Pair(simplePlaylist, tracklist))
+                    playlistTracks.add(Pair(simplePlaylist, tracklist.map { it.copy() }))
                     tracklist.clear()
                 } catch (_: Exception) {
 
                 }
             }
-            println(playlistTracks)
         }
     }
 

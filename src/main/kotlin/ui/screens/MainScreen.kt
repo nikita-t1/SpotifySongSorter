@@ -40,8 +40,8 @@ fun MainScreen() {
         val trackList = remember { viewModel.sourcePlaylist.trackList }
         val playlists = remember { (viewModel.destPlaylists.playlistTracks) }
 
-        BoxWithVerticalScrollbar {
-            LazyColumn(modifier = Modifier.fillMaxSize(), state = it) {
+        BoxWithVerticalScrollbar { listState ->
+            LazyColumn(modifier = Modifier.fillMaxSize(), state = listState) {
                 items(trackList) { track ->
                     val stroke by mutableStateOf(viewModel.currentTrack == track.id)
                     Card(
@@ -105,7 +105,7 @@ fun MainScreen() {
                                     verticalAlignment = Alignment.Bottom
                                 ) {
                                     items(playlists) { (playlist, tracks) ->
-                                        var isTrackInPlaylist by remember { mutableStateOf(tracks.any { it.id == track.id }) }
+                                        var isTrackInPlaylist by mutableStateOf(tracks.any { it.id == track.id })
                                         ImageWithCheckBox(
                                             Modifier,
                                             imageBitmap = SpotifyImageCache.getImage(playlist.images.first().url),
